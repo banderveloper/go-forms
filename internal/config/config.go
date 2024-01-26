@@ -49,17 +49,17 @@ func MustLoad() *Config {
 		log.Fatalf("configuration file doesn't exists: %s", cfgPath)
 	}
 
-	var config Config
+	var cfg Config
 
-	// try read config and parse it into config var
-	if err := cleanenv.ReadConfig(cfgPath, &config); err != nil {
+	// try read config and parse it into cfg var
+	if err := cleanenv.ReadConfig(cfgPath, &cfg); err != nil {
 		log.Fatalf("error during reading configuration file (%s): %s", cfgPath, err)
 	}
 
 	// insert db password from launch arguments
-	config.Database.Password = dbPass
+	cfg.Database.Password = dbPass
 
-	return &config
+	return &cfg
 }
 
 // getLaunchArgs returns map of all launch args written in format --key value

@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/banderveloper/go-forms/internal/config"
+)
 
 func main() {
-	fmt.Println("Hello world")
+
+	cfg := config.MustLoad()
+
+	fmt.Println(cfg)
 }

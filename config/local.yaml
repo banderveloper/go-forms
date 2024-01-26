@@ -1,0 +1,11 @@
+environment: "local"
+server:
+  address: "localhost:5001"
+  timeout: 4s
+  idle_timeout: 60s
+database:
+  host: "localhost"
+  port: "5432"
+  db_name: "go_forms"
+  user: "developer"
+  password: "secret"

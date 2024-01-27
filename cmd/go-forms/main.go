@@ -18,6 +18,7 @@ func main() {
 	jwtHandler := jwthandler.New(cfg)
 
 	fmt.Println(jwtHandler.GetAccessToken(55))
+	fmt.Println(jwtHandler.GetRefreshToken(56))
 
 	// fmt.Println(cfg)
 }

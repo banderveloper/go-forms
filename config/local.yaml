@@ -9,3 +9,7 @@ database:
   db_name: "go_forms"
   user: "developer"
   password: "secret"
+jwt:
+  key: "temporarysecretjwtkey"
+  access_token_ttl: 180
+  refresh_token_ttl: 180

@@ -1,17 +1,19 @@
 package config
 
 import (
-	"github.com/ilyakaznacheev/cleanenv"
 	"log"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/ilyakaznacheev/cleanenv"
 )
 
 type Config struct {
 	Environment string `yaml:"environment" env:"ENV" env-required:"true"`
 	Server      `yaml:"server"`
 	Database    `yaml:"database"`
+	Jwt         `yaml:"jwt"`
 }
 
 type Server struct {
@@ -26,6 +28,12 @@ type Database struct {
 	DbName   string `yaml:"db_name" env-required:"true"`
 	User     string `yaml:"user" env-required:"true"`
 	Password string `yaml:"password"`
+}
+
+type Jwt struct {
+	Key             string `yaml:"key"`
+	AccessTokenTTL  int    `yaml:"access_token_ttl"`
+	RefreshTokenTTL int    `yaml:"refresh_token_ttl"`
 }
 
 // MustLoad 'Must' naming is used when function does not return error but use panic

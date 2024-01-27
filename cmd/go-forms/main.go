@@ -1,10 +1,10 @@
 package main
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/banderveloper/go-forms/internal/config"
-	"github.com/banderveloper/go-forms/internal/lib/logger"
+	"github.com/banderveloper/go-forms/internal/lib/jwt"
 )
 
 func main() {
@@ -13,11 +13,11 @@ func main() {
 	cfg := config.MustLoad()
 
 	// Initialize pretty logger based on slog
-	slogger := logger.New(cfg.Environment)
+	// slogger := logger.New(cfg.Environment)
 
-	// Test error log
-	err := errors.ErrUnsupported
-	slogger.Error("Logger test", logger.Error(err))
+	jwtHandler := jwt.New(cfg)
+
+	fmt.Println(jwtHandler)
 
 	// fmt.Println(cfg)
 }

@@ -10,6 +10,6 @@ database:
   user: "developer"
   password: "secret"
 jwt:
-  key: "temporarysecretjwtkey"
+  key: "temporarysecretjwtkeyasdasdasdasdasd"
   access_token_ttl: 180
   refresh_token_ttl: 180

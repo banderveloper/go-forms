@@ -1,6 +1,8 @@
-package jwt
+package jwthandler
 
-import "github.com/banderveloper/go-forms/internal/config"
+import (
+	"github.com/banderveloper/go-forms/internal/config"
+)
 
 type JwtHandler struct {
 	Key             string
@@ -8,6 +10,7 @@ type JwtHandler struct {
 	RefreshTokenTTL int
 }
 
+// New jwthandler constructor
 func New(cfg *config.Config) *JwtHandler {
 
 	return &JwtHandler{

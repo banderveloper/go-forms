@@ -8,8 +8,9 @@ database:
   port: "5432"
   db_name: "go_forms"
   user: "developer"
-  password: "secret"
 jwt:
-  key: "temporarysecretjwtkeyasdasdasdasdasd"
-  access_token_ttl: 180
-  refresh_token_ttl: 180
+  access_ttl: 180
+  refresh_ttl: 1800
+  audience: "github.com/banderveloper/go-forms-web"
+  issuer: "github.com/banderveloper/go-forms"
+

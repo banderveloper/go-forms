@@ -31,9 +31,11 @@ type Database struct {
 }
 
 type Jwt struct {
-	Key             string `yaml:"key"`
-	AccessTokenTTL  int    `yaml:"access_token_ttl"`
-	RefreshTokenTTL int    `yaml:"refresh_token_ttl"`
+	Key        string `yaml:"key"`
+	AccessTTL  int    `yaml:"access_ttl" env-required:"true"`
+	RefreshTTL int    `yaml:"refresh_ttl" env-required:"true"`
+	Audience   string `yaml:"audience" env-required:"true"`
+	Issuer     string `yaml:"issuer" env-required:"true"`
 }
 
 // MustLoad 'Must' naming is used when function does not return error but use panic
@@ -44,12 +46,16 @@ func MustLoad() *Config {
 
 	cfgPath := launchArgs["config"]
 	dbPass := launchArgs["db-pass"]
+	jwtKey := launchArgs["jwt-key"]
 
 	if cfgPath == "" {
 		log.Fatal("required --config launch argument is not set")
 	}
 	if dbPass == "" {
 		log.Fatal("required --db-pass launch argument is not set")
+	}
+	if jwtKey == "" {
+		log.Fatal("required --jwt-key launch argument is not set")
 	}
 
 	// if config file doesn't exists
@@ -66,6 +72,7 @@ func MustLoad() *Config {
 
 	// insert db password from launch arguments
 	cfg.Database.Password = dbPass
+	cfg.Jwt.Key = jwtKey
 
 	return &cfg
 }

@@ -2,25 +2,28 @@ package jwthandler
 
 import (
 	"fmt"
-	"time"
-
 	"github.com/banderveloper/go-forms/internal/config"
 	"github.com/golang-jwt/jwt/v5"
+	"time"
 )
 
 type JwtHandler struct {
-	Key             string
-	AccessTokenTTL  int
-	RefreshTokenTTL int
+	Key        string
+	AccessTTL  int
+	RefreshTTL int
+	Audience   string
+	Issuer     string
 }
 
 // New jwthandler constructor
 func New(cfg *config.Config) *JwtHandler {
 
 	return &JwtHandler{
-		Key:             cfg.Jwt.Key,
-		AccessTokenTTL:  cfg.Jwt.AccessTokenTTL,
-		RefreshTokenTTL: cfg.Jwt.RefreshTokenTTL,
+		Key:        cfg.Jwt.Key,
+		AccessTTL:  cfg.Jwt.AccessTTL,
+		RefreshTTL: cfg.Jwt.RefreshTTL,
+		Audience:   cfg.Jwt.Audience,
+		Issuer:     cfg.Jwt.Issuer,
 	}
 }
 
@@ -30,9 +33,13 @@ func (jwtHandler *JwtHandler) GetAccessToken(userId int) (string, error) {
 
 	// create unsigned token with needed claims
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"uid":  userId,
-		"exp":  time.Now().Add(time.Second * time.Duration(jwtHandler.AccessTokenTTL)),
+		"iss":  jwtHandler.Issuer,
+		"sub":  userId,
+		"aud":  jwtHandler.Audience,
+		"exp":  time.Now().Add(time.Second * time.Duration(jwtHandler.AccessTTL)).Unix(),
 		"type": "access",
+		"iat":  time.Now().Unix(),
+		"jti":  time.Now().UnixNano(),
 	})
 
 	// transform key to required array of bytes

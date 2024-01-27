@@ -28,16 +28,20 @@ func New(cfg *config.Config) *JwtHandler {
 func (jwtHandler *JwtHandler) GetAccessToken(userId int) (string, error) {
 	const op = "jwthandler.GetAccessToken"
 
+	// create unsigned token with needed claims
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"uid":  userId,
 		"exp":  time.Now().Add(time.Second * time.Duration(jwtHandler.AccessTokenTTL)),
 		"type": "access",
 	})
 
+	// transform key to required array of bytes
 	signKey := []byte(jwtHandler.Key)
 
+	// sign token
 	signedToken, err := token.SignedString(signKey)
 
+	// if error during signing
 	if err != nil {
 		return "", fmt.Errorf("%s: %w", op, err)
 	}

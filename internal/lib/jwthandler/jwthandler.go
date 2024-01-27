@@ -84,3 +84,14 @@ func (jwtHandler *JwtHandler) GetRefreshToken(userId int) (string, error) {
 
 	return signedToken, nil
 }
+
+// IsTokenValid checks token validity
+func (jwtHandler *JwtHandler) IsTokenValid(tokenStr string) bool {
+	const op = "jwthandler.IsTokenValid"
+
+	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+		return []byte(jwtHandler.Key), nil
+	})
+
+	return err == nil && token.Valid
+}

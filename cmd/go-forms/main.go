@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/banderveloper/go-forms/internal/config"
 	"github.com/banderveloper/go-forms/internal/lib/jwthandler"
+	"github.com/banderveloper/go-forms/internal/lib/logger"
 )
 
 func main() {
@@ -13,12 +12,8 @@ func main() {
 	cfg := config.MustLoad()
 
 	// Initialize pretty logger based on slog
-	// slogger := logger.New(cfg.Environment)
-
+	slogger := logger.New(cfg.Environment)
 	jwtHandler := jwthandler.New(cfg)
 
-	fmt.Println(jwtHandler.GetAccessToken(55))
-	fmt.Println(jwtHandler.GetRefreshToken(56))
-
-	// fmt.Println(cfg)
+	_, _ = slogger, jwtHandler
 }

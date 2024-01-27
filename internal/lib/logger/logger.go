@@ -6,21 +6,21 @@ import (
 )
 
 const (
-	ENV_LOCAL = "local"
-	ENV_DEV   = "development"
-	ENV_PROD  = "production"
+	EnvLocal = "local"
+	EnvDev   = "development"
+	EnvProd  = "production"
 )
 
-// Constructor of logger with integrated pretty printing
+// New Constructor of logger with integrated pretty printing
 func New(env string) *slog.Logger {
 
 	var debugLevel slog.Level
 
 	switch env {
-	case ENV_LOCAL:
+	case EnvLocal:
 		debugLevel = slog.LevelDebug
-	case ENV_DEV:
-	case ENV_PROD:
+	case EnvDev:
+	case EnvProd:
 		debugLevel = slog.LevelDebug
 	}
 

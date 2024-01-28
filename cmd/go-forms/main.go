@@ -25,6 +25,7 @@ func main() {
 	setupMiddleware(router)
 	setupRoutes(router)
 
+	// Initialize server
 	server := &http.Server{
 		Addr:         cfg.Address,
 		Handler:      router,
@@ -33,6 +34,7 @@ func main() {
 		IdleTimeout:  cfg.Server.IdleTimeout,
 	}
 
+	// Start server
 	slogger.Info("Server started", slog.String("address", cfg.Address))
 
 	if err := server.ListenAndServe(); err != nil {
